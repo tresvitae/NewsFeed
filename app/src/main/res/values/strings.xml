@@ -1,5 +1,34 @@
 <resources>
     <string name="app_name">News Feed</string>
+
+    <!--for NewsFeedActivity.xml-->
     <string name="no_newfeeds">No News Feed found.</string>
     <string name="no_internet">No internet connection.</string>
+
+    <!-- for SettingsActivity.xml -->
+    <string name="settings_menu_item">Settings</string>
+    <string name="settings_title">NewsFeed Settings</string>
+
+    <!-- Strings For Order-By Preference -->
+    <string name="settings_order_by_label">Order By</string>
+    <string name="settings_order_by_key" translatable="false">order_by</string>
+    <string name="settings_order_by_default" translatable="false">0</string>
+
+    <!-- Label for order-by Newest option -->
+    <string name="settings_order_by_newest_label">Newest</string>
+    <string name="settings_order_by_newest_value" translatable="false">newest</string>
+
+    <!-- Label for order-by most Oldest option-->
+    <string name="settings_order_by_oldest_label">Oldest</string>
+    <string name="settings_order_by_oldest_value" translatable="false">oldest</string>
+
+    <!--Label for order-by relevance option-->
+    <string name="settings_order_by_relevance_label">Relevance</string>
+    <string name="settings_order_by_relevance_value">translatable-"false">relevance</string>
+
+    <!--For number of articles-->
+    <string name="settings_articles_label">Number of articles</string>
+    <string name="settings_articles_key" translatable="false">articlesNumber</string>
+    <string name="settings_articles_default" translatable="false">5</string>
+
 </resources>
