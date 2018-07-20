@@ -134,9 +134,6 @@ public class NewsFeedActivity extends AppCompatActivity implements
     @Override
     public void onLoaderReset(Loader<List<NewsFeed>> loader) {
         fieldAdapter.clear();
-//        if (!networkInfo.isConnected()) {
-//            fieldEmptyTextView.setText(R.string.no_internet);
-//        }
     }
 
 
