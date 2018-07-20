@@ -38,6 +38,10 @@ public class NewsFeedActivity extends AppCompatActivity implements
 
     private TextView fieldEmptyTextView;
 
+    private ConnectivityManager connMgr;
+
+    private  NetworkInfo networkInfo;
+
     /** Displays main view which contains list of articles with section, author's name and date of publish. */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,16 +69,15 @@ public class NewsFeedActivity extends AppCompatActivity implements
         });
 
         // Get a reference to the ConnectivityManager to check state of network connectivity.
-        ConnectivityManager connMgr = (ConnectivityManager)
+        connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
         // Get details on the currently active default data network
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        networkInfo = connMgr.getActiveNetworkInfo();
 
         // If there is a network connection, fetch data
         if (networkInfo != null && networkInfo.isConnected()) {
-            LoaderManager loaderManager = getLoaderManager();
 
-            loaderManager.initLoader(NEWSFEED_LOADER_ID, null, this);
+            getLoaderManager().initLoader(NEWSFEED_LOADER_ID, null, this);
         } else {
             // Otherwise, display error
             View loadingIndicator = findViewById(R.id.loading_indicator);
@@ -119,7 +122,7 @@ public class NewsFeedActivity extends AppCompatActivity implements
     public void onLoadFinished(Loader<List<NewsFeed>> loader, List<NewsFeed> newsfeeds) {
         View loadingIndicator = findViewById(R.id.loading_indicator);
         loadingIndicator.setVisibility(View.GONE);
-        fieldEmptyTextView.setText(R.string.no_newfeeds);
+        fieldEmptyTextView.setText(R.string.no_internet);
 
         fieldAdapter.clear();
 
@@ -131,6 +134,9 @@ public class NewsFeedActivity extends AppCompatActivity implements
     @Override
     public void onLoaderReset(Loader<List<NewsFeed>> loader) {
         fieldAdapter.clear();
+//        if (!networkInfo.isConnected()) {
+//            fieldEmptyTextView.setText(R.string.no_internet);
+//        }
     }
 
 
