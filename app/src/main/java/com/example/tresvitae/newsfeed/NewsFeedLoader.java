@@ -9,7 +9,8 @@ public class NewsFeedLoader extends AsyncTaskLoader<List<NewsFeed>> {
 
     private static final String LOG_TAG = NewsFeedLoader.class.getName();
 
-    private String fieldUrl;
+    /** Variable's value is never going to be changed so declared it as final */
+    final private String fieldUrl;
 
     public NewsFeedLoader(Context context, String url) {
         super(context);

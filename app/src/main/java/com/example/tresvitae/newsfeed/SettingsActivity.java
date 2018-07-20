@@ -19,6 +19,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     public static class NewsFeedPreferenceFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener {
 
+        /** Display settings menu with appear chosen value. */
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);

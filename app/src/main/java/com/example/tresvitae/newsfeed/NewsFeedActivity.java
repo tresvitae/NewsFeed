@@ -38,6 +38,7 @@ public class NewsFeedActivity extends AppCompatActivity implements
 
     private TextView fieldEmptyTextView;
 
+    /** Displays main view which contains list of articles with section, author's name and date of publish. */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +53,7 @@ public class NewsFeedActivity extends AppCompatActivity implements
 
         newsfeedListView.setAdapter(fieldAdapter);
 
+        /** Available to read any clicked(chosen) article from browser. */
         newsfeedListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -82,6 +84,10 @@ public class NewsFeedActivity extends AppCompatActivity implements
         }
     }
 
+    /**
+     *  Customized the API link to give you desired JSON response and
+     *  narrowed it down to preferences selected by user in Settings activity like order-by and numbers of articles.
+     */
     @Override
     public Loader<List<NewsFeed>> onCreateLoader(int id, Bundle args) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);

@@ -22,6 +22,14 @@ public class QueryUtils {
 
     private static final String LOG_TAG = QueryUtils.class.getSimpleName();
 
+    private static final int READ_TIMEOUT = 10000;  /* milliseconds */
+
+    private static final int CONNECT_TIMEOUT = 15000; /* milliseconds */
+
+    private static final int RESPONSE_CODE = 200;
+
+
+
     private QueryUtils() {
     }
 
@@ -70,11 +78,11 @@ public class QueryUtils {
         InputStream inputStream = null;
         try {
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setReadTimeout(10000 /* milliseconds */);
-            urlConnection.setConnectTimeout(15000 /* milliseconds */);
+            urlConnection.setReadTimeout(READ_TIMEOUT);
+            urlConnection.setConnectTimeout(CONNECT_TIMEOUT);
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
-            if (urlConnection.getResponseCode() == 200) {
+            if (urlConnection.getResponseCode() == RESPONSE_CODE) {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
             } else {
@@ -107,6 +115,7 @@ public class QueryUtils {
         return output.toString();
     }
 
+    /** Import data from Guardian JSON website to find and fetch proper data. */
     private static List<NewsFeed> extractFeatureFromJson(String newsfeedJSON) {
         if (TextUtils.isEmpty(newsfeedJSON)) {
             return null;
@@ -117,21 +126,21 @@ public class QueryUtils {
             String fullName;
 
             JSONObject jsonRoot = new JSONObject(newsfeedJSON);
-            JSONObject responseObjects = jsonRoot.getJSONObject("response");
+            JSONObject responseObjects = jsonRoot.optJSONObject("response");
 
-            JSONArray newsfeedArray = responseObjects.getJSONArray("results");
+            JSONArray newsfeedArray = responseObjects.optJSONArray("results");
             for (int i = 0; i < newsfeedArray.length(); i++) {
-                JSONObject currentNewsFeed = newsfeedArray.getJSONObject(i);
+                JSONObject currentNewsFeed = newsfeedArray.optJSONObject(i);
 
-                String sectionName = currentNewsFeed.getString("sectionName");
-                String webTitle = currentNewsFeed.getString("webTitle");
-                String webPublicationDate = currentNewsFeed.getString("webPublicationDate");
-                String webUrl = currentNewsFeed.getString("webUrl");
+                String sectionName = currentNewsFeed.optString("sectionName");
+                String webTitle = currentNewsFeed.optString("webTitle");
+                String webPublicationDate = currentNewsFeed.optString("webPublicationDate");
+                String webUrl = currentNewsFeed.optString("webUrl");
 
                 JSONArray tags = currentNewsFeed.getJSONArray("tags");
 
                 if (!tags.isNull(0)) {
-                    JSONObject obj = tags.getJSONObject(0);
+                    JSONObject obj = tags.optJSONObject(0);
                     String authorName = obj.optString("firstName");
                     String authorLastName = obj.optString("lastName");
 

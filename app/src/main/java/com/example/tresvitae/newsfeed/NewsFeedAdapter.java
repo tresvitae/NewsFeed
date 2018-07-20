@@ -30,36 +30,22 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
 
     public View getView(int position, View convertView, ViewGroup parent) {
         View listItemView = convertView;
-
-        class KeepView {
-            private TextView sectionNameView;
-            private TextView webTitleView;
-            private TextView webPublicationDateView;
-            private TextView authorNameView;
-        }
-
-        KeepView keepView;
-
         if (listItemView == null) {
-            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
-
-            keepView = new KeepView();
-
-            keepView.sectionNameView = listItemView.findViewById(R.id.section_view);
-            keepView.webTitleView = listItemView.findViewById(R.id.title_view);
-            keepView.webPublicationDateView = listItemView.findViewById(R.id.data_time_view);
-            keepView.authorNameView = listItemView.findViewById(R.id.author_name);
-        } else {
-            keepView = (KeepView) listItemView.getTag();
+            listItemView = LayoutInflater.from(getContext()).inflate(
+                    R.layout.list_item, parent, false);
         }
 
+        final NewsFeed currentNewsFeed = getItem(position);
 
-        NewsFeed currentNewsFeed = getItem(position);
+        TextView sectionNameView = (TextView) listItemView.findViewById(R.id.section_view);
+        TextView webTitleView = (TextView) listItemView.findViewById(R.id.title_view);
+        TextView webPublicationDateView = (TextView) listItemView.findViewById(R.id.data_time_view);
+        TextView authorNameView = (TextView) listItemView.findViewById(R.id.author_name);
 
-        keepView.sectionNameView.setText(currentNewsFeed.getSectionName());
-        keepView.webTitleView.setText(currentNewsFeed.getWebTitle());
-        keepView.webPublicationDateView.setText(formatTime(currentNewsFeed.getWebPublicationDate()));
-        keepView.authorNameView.setText(currentNewsFeed.getAuthorName());
+        sectionNameView.setText(currentNewsFeed.getSectionName());
+        webTitleView.setText(currentNewsFeed.getWebTitle());
+        webPublicationDateView.setText(formatTime(currentNewsFeed.getWebPublicationDate()));
+        authorNameView.setText(currentNewsFeed.getAuthorName());
 
         return listItemView;
     }
